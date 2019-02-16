@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "description": "A simple pubnub chat application",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": "6.9.2",
+    "npm": "3.10.9"
   },
-  "author": "",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhruvp-8/pubnub-chat.git"
+  },
+  "author": "Dhruv Patel",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
