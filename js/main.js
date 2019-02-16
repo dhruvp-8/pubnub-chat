@@ -20,7 +20,6 @@ const hasWhiteSpace = (s) => {
   return s.indexOf(' ') >= 0;
 }
 
-
 const appendMessage = (username, text) => {
 
   let message =
