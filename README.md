@@ -2,6 +2,8 @@
 
 This application allows you to chat with random people in a specific chatroom. Moreover, it allows you to send fun GIFs and emojis which makes the chatting experience more fun with strangers. You can also suggest your friends with new songs and link them directly with spotify.
 
+![Alt text](./images/header.png "Technology Stack")
+
 ### Prerequisites
 
 What things you need to install the software and how to install them
