@@ -6,7 +6,7 @@ This application allows you to chat with random people in a specific chatroom. M
 
 ### Video
 
-![Alt text](https://www.youtube.com/watch?v=nR5AnildFAo "Technology Stack")
+[![](http://img.youtube.com/vi/nR5AnildFAo/0.jpg)](http://www.youtube.com/watch?v=nR5AnildFAo "Live Demo")
 
 ### Prerequisites
 
