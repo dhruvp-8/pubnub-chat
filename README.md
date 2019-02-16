@@ -125,7 +125,7 @@ chat.on('$.connected', () => {
 
 First get your client id and client secret from [here](https://developer.spotify.com/)
 
-You these keys to generate an authentication token. Please remember that you do this request from server side that is Node.js which would prevent your client secret from getting exposed.
+You need these keys to generate an authentication token. Please remember that you do this request from server side in order to prevent your client secret from getting exposed.
 
 ```javascript
 var authOptions = {
