@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PubNub Chat Application</title>
+	<link href="https://bootswatch.com/4/lumen/bootstrap.min.css" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+	<link href="./css/style.css" rel="stylesheet">
+</head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chat-engine@0.9.18/dist/chat-engine.min.js"></script> 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>
+<body>
+	<div id="userFormArea">
+		<div class="container">
+			<h2 class="text-center">PubNub Chat Application</h2>
+			<hr>
+		  <fieldset>
+		    <legend>Login </legend>
+		    <br>
+		    <div id="error">
+			    <div class="alert alert-danger">
+			    	<span id="error_msg"></span>
+			    </div>
+			</div>
+		    <div class="form-group">
+		      <label for="exampleInputName"><b>Enter a Username</b></label>
+		      <input type="name" class="form-control" id="username" aria-describedby="emailHelp" placeholder="John" required>
+		    </div>
+		    <div class="form-group">
+		      <label for="color"><b>Select a Color</b></label>
+		      <input type="color" class="form-control" id="color" placeholder="Red" required>
+		      <small id="disp-help" class="form-text text-muted">Select a color which represents you.</small>
+		    </div>
+		    <input type="button" class="btn btn-primary" value="Enter Chat Room" onclick="storeUsername();">
+		  </fieldset>
+		</div>
+	</div>
+	<div id="chatArea">
+		<div id="loader">
+			<div class="text-center">
+			  <div class="spinner-border" role="status">
+			    <span class="sr-only">Loading...</span>
+			  </div>
+			</div>
+		</div>
+		<div id="toaster">
+		    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		     	<div class="toast-header">
+		        	<strong class="mr-auto">Notification</strong>
+		        	<small class="text-muted">just now</small>
+		        	<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+		          		<span aria-hidden="true">&times;</span>
+		        	</button>
+		      	</div>
+		      	<div class="toast-body">
+		      	</div>
+		    </div>
+	  </div>
+		<div class="container-fluid">
+			<h2 class="text-center">PubNub ChatRoom</h2>
+			<hr>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3">
+			        <div class="row">
+			        	<div class="col-md-12">
+				        	<div class="card">
+							  <img class="card-img-top" id="img-log" alt="Card image cap">
+							  <div class="card-body">
+							    <h5 class="card-title"></h5>
+							    <p class="card-text">Chatting is the best way to socialize and engage with new people.</p>
+							    <input type="button" class="btn btn-danger" value="Leave Chat Room" onclick="leaveChatRoom();">
+							  </div>
+							</div>
+						</div>
+			        </div>
+			        <br>
+			        <br>
+			        <div class="row">
+			        	<div class="col-md-12">
+			            	<div class="list-group" id="log"></div>
+			            	<br>
+			            	<br>
+			          	</div>
+			        </div>
+			    </div>
+			    <div class="col-md-8">
+			    	<div class="contain">
+				    	<div class="card">
+				    		<div class="card-body">
+				    			<div id="messages"></div>
+				    		</div>
+				    	</div>
+				    </div>
+			    	<br>
+			    	<textarea class="form-control" id="message" placeholder="Your message here..." required></textarea>
+			    	<br>
+			    	<div class="row">
+			    		<div class="col-md-6">
+				    		<button class="btn btn-block btn-primary" onclick="getGifs();">Show Gifs</button>
+				    	</div>
+				    	<div class="col-md-6">
+				    		<button class="btn btn-block btn-warning" onclick="getSongs();">Send Songs</button>
+				    	</div>
+				    </div>
+			    	<br><br>
+			    	<div id="temp"></div>
+			    </div>
+			    <div class="col-md-3">
+			    	
+			    </div>
+			</div>
+	    </div>
+	</div>
+	<footer id="ft">
+	    <div class="container">
+	    <hr>
+		    <div class="row">
+		    	<div class="col-md-4 col-xs-4">
+		    		<div class="row">
+		    			<div class="col-md-4">
+		    				<a href="https://github.com/dhruvp-8/pubnub-chat" target="_blank"><img src="./images/github.svg" class="github" height="30px"></a>
+		    			</div>
+		    			<div class="col-md-4">
+		    				<a href="https://giphy.com/" target="_blank"><img src="./images/giphy.png" height="30px"></a>
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="col-md-4 col-xs-4">
+		    		<center><h6 class="copyright"><strong>Copyright &copy; 2019 PubNub Chat.</strong></h6></center>
+		    	</div>
+		    	<div class="col-md-4 col-xs-4">
+		    		<div class="row">
+			        	<div class="col-md-2"></div>
+			   		 	<div class="col-md-6"><center><a href="https://www.pubnub.com/" target="_blank"><img src="./images/pubnub-logo.png" class="webrtc" height="30px"></a></center></div>
+			   		 	<div class="col-md-4"><a href="https://www.spotify.com/" target="_blank"><i class="fab fa-spotify fa-2x"></i></a></div>
+		    		</div>
+		    	</div>
+		    </div>
+	    </div>
+	</footer>
+	<script src="./js/main.js"></script>
+</body>
+</html>

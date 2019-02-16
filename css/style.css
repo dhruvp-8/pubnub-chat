@@ -1,0 +1,160 @@
+.container {
+  margin-top: 50px;
+  }
+  .container-fluid {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  #toaster {
+    position: absolute;
+    right: 20px;
+    top: 30px;
+  }
+  .issuu-embed-container {
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .issuu-embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #loader {
+    position: absolute;
+    top: 50%;
+    left: 48%;
+  }
+  footer {
+    position: relative;
+    top: 380px
+  }
+
+.chip {
+  display: inline-block;
+  height: auto;
+  width: 50%;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 10px 10px;
+  border-radius: 16px;
+  background-color: #e4e4e4;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  word-wrap: break-word;
+}
+
+.chip:focus {
+  outline: none;
+  background-color: #26a69a;
+  color: #fff;
+}
+
+.chip > img {
+  float: left;
+  margin: 0 8px 0 -12px;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+}
+
+.chip .close {
+  cursor: pointer;
+  float: right;
+  font-size: 16px;
+  line-height: 32px;
+  padding-left: 8px;
+}
+
+.chips {
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  margin: 0 0 8px 0;
+  min-height: 45px;
+  outline: none;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.chips.focus {
+  border-bottom: 1px solid #26a69a;
+  -webkit-box-shadow: 0 1px 0 0 #26a69a;
+          box-shadow: 0 1px 0 0 #26a69a;
+}
+
+.chips:hover {
+  cursor: text;
+}
+
+.chips .input {
+  background: none;
+  border: 0;
+  color: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  font-size: 16px;
+  height: 3rem;
+  line-height: 32px;
+  outline: 0;
+  margin: 0;
+  padding: 0 !important;
+  width: 120px !important;
+}
+
+.chips .input:focus {
+  border: 0 !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.chips .autocomplete-content {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.prefix ~ .chips {
+  margin-left: 3rem;
+  width: 92%;
+  width: calc(100% - 3rem);
+}
+
+.chips:empty ~ label {
+  font-size: 0.8rem;
+  -webkit-transform: translateY(-140%);
+          transform: translateY(-140%);
+}
+
+@media (min-width: 768px){
+  .left {
+    width: 50%;
+  }
+  .right {
+    position: relative;
+    right: -50%;
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px){
+  .le {
+    width: 50%;
+  }
+  .ri {
+    position: relative;
+    right: -90%;
+    width: 50%;
+  }
+}
+
+
+.card {
+  max-height: 600px;
+  overflow-y: auto;
+}
