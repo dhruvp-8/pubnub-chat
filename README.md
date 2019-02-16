@@ -4,6 +4,10 @@ This application allows you to chat with random people in a specific chatroom. M
 
 ![Alt text](./images/header.png "Technology Stack")
 
+### Video
+
+![Alt text](https://www.youtube.com/watch?v=nR5AnildFAo "Technology Stack")
+
 ### Prerequisites
 
 What things you need to install the software and how to install them
