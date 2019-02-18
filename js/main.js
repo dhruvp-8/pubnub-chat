@@ -220,30 +220,36 @@ const leaveChatRoom = () => {
 
 
 const storeUsername = () => {
-	if($username.val() != ''){
-		if(!hasWhiteSpace($username.val())){
-			$error.hide();
-			var num = Math.floor((Math.random() * 6) + 1)
-		    fin_img = "./images/" + num.toString() + ".png";
-		    document.getElementById('img-log').src = fin_img;
-			console.log(fin_img)
-			console.log($color.val());
-			let me = ChatEngine.connect($username.val(), {'color': $color.val(), 'img': fin_img});
+	if($color.val() != "#ffffff"){
+		if($username.val() != ''){
+			if(!hasWhiteSpace($username.val())){
+				$error.hide();
+				var num = Math.floor((Math.random() * 6) + 1)
+			    fin_img = "./images/" + num.toString() + ".png";
+			    document.getElementById('img-log').src = fin_img;
+				console.log(fin_img)
+				console.log($color.val());
+				let me = ChatEngine.connect($username.val(), {'color': $color.val(), 'img': fin_img});
 
-			ChatEngine.on('$.ready', (data) => {
-			    let me = data.me;
-			});
-			var $userFormArea = $('#userFormArea')
-			$userFormArea.hide();
-			createChatRoom();
+				ChatEngine.on('$.ready', (data) => {
+				    let me = data.me;
+				});
+				var $userFormArea = $('#userFormArea')
+				$userFormArea.hide();
+				createChatRoom();
+			}
+			else {
+				$error_msg.html("Please enter username without spaces.");
+				$error.show();
+			}
 		}
 		else {
-			$error_msg.html("Please enter username without spaces.");
+			$error_msg.html("Please fill all the fields inorder to continue.");
 			$error.show();
 		}
 	}
 	else {
-		$error_msg.html("Please fill all the fields inorder to continue.");
+		$error_msg.html("Please select a color other than white.");
 		$error.show();
 	}
 }
@@ -327,8 +333,8 @@ const getGifs = () => {
 		for(var i=0; i < urls.length; i++){
 			html += `<div class="card text-center"><div class="card-body"><div class="col-md-12"><div class="issuu-embed-container"><iframe src=`+ urls[i] +` frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><br><button id="`+ urls[i] +`" class="btn btn-warning" onclick="sendMsg(this);"> Send this GIF</button></div></div></div>`
 		}
-
 		$temp.html(html);
+		$temp.show();
 	}
 	else {
 		$('.toast-body').html('No GIFS found. Please search for something else.');
