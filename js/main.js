@@ -15,6 +15,7 @@ var $error_msg = $("#error_msg");
 var $loader = $("#loader").hide();
 var $ft = $("#ft");
 var fin_img = ''
+var timestamp; 
 
 const hasWhiteSpace = (s) => {
   return s.indexOf(' ') >= 0;
@@ -35,67 +36,62 @@ const appendMessage = (username, text) => {
 
 const appendChat = (username, text, color, img) => {
 	var time = DisplayCurrentTime();
+	var timestamp = Math.round(new Date() / 1000);
 	if(text.includes("/gif")){
 		var sp = text.split(" ");
 		if(username != $username.val()){
-			let message = $(`<div class="chip left" style="color: black; background-color: #eee;" />`)
+			let message = $(`<div class="chip left" id=`+ timestamp +` style="color: black; background-color: #eee;" />`)
 			.append('<img src="'+ img +'" alt="Contact Person">')
 			.append('<strong>'+ username + ': </strong><br>')
 			.append('<div class="issuu-embed-container"><iframe src='+ sp[1] +' frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><br>')
 			$('#messages').append(message).append('<br><div class="le">Received <i class="fas fa-check"></i> '+ time + '</div>');
-			$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight") }, "slow");
 			$temp.hide();
 		}
 		else {
-			let message = $(`<div class="chip right" style="color: black; background-color: #eee;" />`)
+			let message = $(`<div class="chip right" id=`+ timestamp +` style="color: black; background-color: #eee;" />`)
 			.append('<img src="'+ img +'" alt="Contact Person">')
 			.append('<strong>'+ username + ': </strong><br>')
 			.append('<div class="issuu-embed-container"><iframe src='+ sp[1] +' frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><br>')
 			$('#messages').append(message).append('<br><div class="ri">Sent <i class="fas fa-check"></i> '+ time + '</div>');
-			$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight") }, "slow");
 			$temp.hide();
 		}
 	}
 	else if(text.includes("/spotify")) {
 		var sp = text.split(" ");
 		if(username != $username.val()){
-			let message = $(`<div class="chip left" style="color: black; background-color: #eee;" />`)
+			let message = $(`<div class="chip left" id=`+ timestamp +` style="color: black; background-color: #eee;" />`)
 			.append('<img src="'+ img +'" alt="Contact Person">')
 			.append('<strong>'+ username + ': </strong><br>')
 			.append('<iframe class="iframe-class" src="' + sp[1] + '" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>')
 			$('#messages').append(message).append('<br><div class="le">Received <i class="fas fa-check"></i> '+ time + '</div>');
-			$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight") }, "slow");
 			$loader.hide();
 		}
 		else {
-			let message = $(`<div class="chip right" style="color: black; background-color: #eee;" />`)
+			let message = $(`<div class="chip right" id=`+ timestamp +` style="color: black; background-color: #eee;" />`)
 			.append('<img src="'+ img +'" alt="Contact Person">')
 			.append('<strong>'+ username + ': </strong><br>')
 			.append('<iframe class="iframe-class" src="' + sp[1] + '" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>')
 			$('#messages').append(message).append('<br><div class="ri">Sent <i class="fas fa-check"></i> '+ time + '</div>');
-			$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight") }, "slow");
 			$loader.hide();
 		}
 	}
 	else {
 		if(username != $username.val()){
-			let message = $(`<div class="chip left" style="color: white; background-color: `+ color +`;" />`)
+			let message = $(`<div class="chip left" id=`+ timestamp +` style="color: white; background-color: `+ color +`;" />`)
 				.append('<img src="'+ img +'" alt="Contact Person">')
 		      	.append($('<strong>').text(username + ': '))
 		      	.append($('<span>').text(text))
 		      	.append('<br>');
 		    $('#messages').append(message).append('<br><div class="le">Received <i class="fas fa-check"></i> '+ time + '</div>');
-			$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight") }, "slow");
 		}
 		else {
-			let message = $(`<div class="chip right" style="color: white; background-color: `+ color +`;" />`)
+			let message = $(`<div class="chip right" id=`+ timestamp +` style="color: white; background-color: `+ color +`;" />`)
 				.append('<img src="'+ img +'" alt="Contact Person">')
 		      	.append($('<strong>').text(username + ': '))
 		      	.append($('<span>').text(text))
 		      	.append('<br>');
 
 		    $('#messages').append(message).append('<br><div class="ri">Sent <i class="fas fa-check"></i> '+ time + '</div>');
-			$("#messages").animate({ scrollTop: $('#messages').prop("scrollHeight") }, "slow");
 		}
 
 	}
@@ -106,6 +102,8 @@ const appendChat = (username, text, color, img) => {
 			"delay": 4000
 	  	});
 		$('.toast').toast('show');
+	var ks = "#" + timestamp 
+	window.location = ks;
 };
 
 
@@ -329,12 +327,14 @@ const getGifs = () => {
 	if(urls.length != 0){
 		console.log(urls);
 		var html = '';
-
+		html += `<div class="row">`
 		for(var i=0; i < urls.length; i++){
-			html += `<div class="card text-center"><div class="card-body"><div class="col-md-12"><div class="issuu-embed-container"><iframe src=`+ urls[i] +` frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><br><button id="`+ urls[i] +`" class="btn btn-warning" onclick="sendMsg(this);"> Send this GIF</button></div></div></div>`
+			html += `<div class="col-md-6"><div class="card text-center"><div class="card-body"><div class="col-md-10"><div class="issuu-embed-container"><iframe src=`+ urls[i] +` frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><br><button id="`+ urls[i] +`" class="btn btn-block btn-success" onclick="sendMsg(this);"> Send this GIF</button></div></div></div></div>`
 		}
+		html += `</div>`
 		$temp.html(html);
 		$temp.show();
+		window.location = "#temp"
 	}
 	else {
 		$('.toast-body').html('No GIFS found. Please search for something else.');
