@@ -1,11 +1,12 @@
 let chat;
 
+// Create the ChatEngine Instance
 ChatEngine = ChatEngineCore.create({
     publishKey: 'pub-c-d5ff1d1c-58a0-4d35-9316-5fc427aec439',
     subscribeKey: 'sub-c-032a4f30-2e9e-11e9-929a-9a812f696210'
 });
 
-
+// Global Variable Declaration
 var $username = $('#username');
 var $color = $('#color');
 var $temp = $("#temp");
@@ -17,10 +18,13 @@ var $ft = $("#ft");
 var fin_img = ''
 var timestamp; 
 
+
+// Remove WhiteSpace from a string
 const hasWhiteSpace = (s) => {
   return s.indexOf(' ') >= 0;
 }
 
+// Append Message to Chat Window
 const appendMessage = (username, text) => {
 
   let message =
@@ -29,16 +33,22 @@ const appendMessage = (username, text) => {
       .append($('<span>').text(text));
 
   $('#log').append(message);
-
   $("#log").animate({ scrollTop: $('#log').prop("scrollHeight") }, "slow");
 
 };
 
+// Append Spotify and Giphy Card to Chat Window
 const appendChat = (username, text, color, img) => {
 	var time = DisplayCurrentTime();
+
+	// Get time and set it as unique id for window.location, basically to scroll to that position
 	var timestamp = Math.round(new Date() / 1000);
+
+	//Check if the text contains /gif parameter
 	if(text.includes("/gif")){
 		var sp = text.split(" ");
+
+		// Prevent notifications from showing to the sender
 		if(username != $username.val()){
 			let message = $(`<div class="chip left" id=`+ timestamp +` style="color: black; background-color: #eee;" />`)
 			.append('<img src="'+ img +'" alt="Contact Person">')
@@ -56,6 +66,7 @@ const appendChat = (username, text, color, img) => {
 			$temp.hide();
 		}
 	}
+	//Check if the text contains /spotify parameter
 	else if(text.includes("/spotify")) {
 		var sp = text.split(" ");
 		if(username != $username.val()){
@@ -75,6 +86,7 @@ const appendChat = (username, text, color, img) => {
 			$loader.hide();
 		}
 	}
+	// Direct Message
 	else {
 		if(username != $username.val()){
 			let message = $(`<div class="chip left" id=`+ timestamp +` style="color: white; background-color: `+ color +`;" />`)
@@ -95,6 +107,8 @@ const appendChat = (username, text, color, img) => {
 		}
 
 	}
+
+	// Notification Toast 
 	$('.toast-body').html('New message received from ' + username);
 	 	$('.toast').toast({
 			"animation": true,
@@ -102,11 +116,14 @@ const appendChat = (username, text, color, img) => {
 			"delay": 4000
 	  	});
 		$('.toast').toast('show');
+
+	// Scroll to the latest message in the Chat
 	var ks = "#" + timestamp 
 	window.location = ks;
 };
 
 
+// Show the online users
 const showOnlineUsers = (data) => {
 	let users =
 	$(`<div class="list-group-item" id="`+ data.user.uuid +`" style="color: white; background-color: `+ data.user.state.color +`;" />`)
@@ -118,17 +135,22 @@ const showOnlineUsers = (data) => {
 
 }
 
-
+// Create a random chat room for chatting
 const createChatRoom = () => {
+	// Display Chat Area
 	$chatArea.show();
 	$ft.hide();
+
+	// Initiate the Chat Engine
 	ChatEngine.on('$.ready', (data) => {
 
 	    let me = data.me;
 
+	    // New chat room instance 
 	    chat = new ChatEngine.Chat('new-chat');
 
 	    chat.on('$.connected', (payload) => {
+	    	// Notification for successful connection
 	      	$('.toast-body').html('You are now connected to the chat room.');
 	     	$('.toast').toast({
 				"animation": true,
@@ -136,6 +158,8 @@ const createChatRoom = () => {
 				"delay": 4000
 		  	});
 			$('.toast').toast('show');
+
+			// Display the message history and limit to last 10 messages
 			chat.search({
 		        reverse: false,
 		        event: 'message',
@@ -144,31 +168,35 @@ const createChatRoom = () => {
 		        // when messages are returned, log them like normal messages
 		        appendChat(data.sender.uuid, data.data.text, data.data.color, data.data.img);
 		    });
+
+		    // Show Online Users
 			showOnlineUsers();
 	    });
 
+	    // Rejoined Chat Users
 	    chat.on('$.online.here', (payload) => {
 	      appendMessage('Rejoined', payload.user.uuid + ' has rejoined the chat room!');
 	    });
 
+	    // New User joined 
 	    chat.on('$.online.join', (payload) => {
 	      appendMessage('New User', payload.user.uuid + ', joined the chat room!');
 	      showOnlineUsers(payload);
 	    });
 
-	    chat.on('$.online.*', (payload) => {
-		    //showOnlineUsers(payload);
-		});
-
+	    // Receive the emitted message and call appendChat to display it in Chat Window
 	    chat.on('message', (payload) => {
 	    	console.log(payload.data.img)
 	      appendChat(payload.sender.uuid, payload.data.text, payload.data.color, payload.data.img);
 	    });
 
+	    // Leave the Chat
 	    chat.on('leave', () => {
 	    	
 	    })
 
+
+	    // When the user hits enters after typing the message
 	    $("#message").keypress(function(event) {
 	      if (event.which == 13) {
 	      	if ($('#message').val() != ''){
@@ -195,6 +223,8 @@ const createChatRoom = () => {
 	});
 }
 
+
+// Leave the chat room
 const leaveChatRoom = () => {
 	chat.on('$.offline.leave', (payload) => {
 		appendMessage('Left', payload.user.uuid + 'has left the room');
@@ -216,7 +246,7 @@ const leaveChatRoom = () => {
 	$('.toast').toast('show');
 }
 
-
+// Store the Username and pass it to the chat engines's connect method
 const storeUsername = () => {
 	if($color.val() != "#ffffff"){
 		if($username.val() != ''){
@@ -252,6 +282,7 @@ const storeUsername = () => {
 	}
 }
 
+// Method invoked when Send GIF button is pressed
 const sendMsg = (btn) => {
 	chat.emit('message', {
         text: '/gif ' + btn.id,
@@ -261,6 +292,7 @@ const sendMsg = (btn) => {
   $("#message").val('');
 }
 
+// Method invoked when Send Song button is pressed
 const sendSong = (song) => {
 	chat.emit('message', {
         text: '/spotify ' + song,
@@ -270,6 +302,7 @@ const sendSong = (song) => {
   $("#message").val('');
 }
 
+// Convert time from seconds to hh:mm a/p format
 const DisplayCurrentTime = () => {
     var date = new Date();
     var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
@@ -281,6 +314,7 @@ const DisplayCurrentTime = () => {
     return time;
 }
 
+// AJAX Call to get the GIFs from the Giphy API
 const getGifs = () => {
 	var obj;
 	 $.ajax({
@@ -319,11 +353,13 @@ const getGifs = () => {
             console.log(msg);
         }
       });
+
 	var urls = [];
 	console.log(obj)
 	for(var i=0; i < obj.data.length; i++){
 		urls.push(obj.data[i].embed_url)
 	}
+	// Displaying the GIFs only if they are available
 	if(urls.length != 0){
 		console.log(urls);
 		var html = '';
@@ -336,6 +372,7 @@ const getGifs = () => {
 		$temp.show();
 		window.location = "#temp"
 	}
+	// Showing the notification of their unavailabity
 	else {
 		$('.toast-body').html('No GIFS found. Please search for something else.');
 	 	$('.toast').toast({
@@ -347,6 +384,7 @@ const getGifs = () => {
 	}
 }
 
+// Convert the data to x-www-form-urlencode format
 const JSON_to_URLEncoded = (element,key,list) => {
 	var list = list || [];
 	if(typeof(element)=='object'){
@@ -358,16 +396,19 @@ const JSON_to_URLEncoded = (element,key,list) => {
 	  return list.join('&');
 }
 
+// Get Songs from the Spotify API
 const getSongs = () => {
 	var song;
 	$loader.show();
+
+	// AJAX Call to do basic authentication and getting the access token
 	$.ajax({
-		url: '/token',
+		url: '/token', // This request goes to the backend server running on Node.js
 		type: 'get',
 		success: function(res){
-			//console.log("Hello")
-			//x = JSON.parse(err.responseText)
 			console.log(res.access_token);
+
+			// Make the call to search API using this authentication token
 			$.ajax({
 				url: 'https://api.spotify.com/v1/search?limit=10' + '&q='+ $('#message').val() + '&type=track',
 				dataType: 'json',

@@ -1,35 +1,46 @@
+/* Main Container in Home Page */
 .container {
   margin-top: 50px;
-  }
-  .container-fluid {
-    margin-top: 50px;
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-  #toaster {
-    position: absolute;
-    right: 20px;
-    top: 30px;
-  }
-  .issuu-embed-container {
-    position: relative;
-    padding-bottom: 56.25%; 
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-  }
-  .issuu-embed-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  footer {
-    position: relative;
-    top: 380px
-  }
+}
 
+/* Main Container in Chat room Page */
+.container-fluid {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+/* Positioning the notification */
+#toaster {
+  position: absolute;
+  right: 20px;
+  top: 30px;
+}
+
+/* Handling the overflow the giphy embed */
+.issuu-embed-container {
+  position: relative;
+  padding-bottom: 56.25%; 
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.issuu-embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Styling footer */
+footer {
+  position: relative;
+  top: 380px
+}
+
+/* Styling the Chip Class */
 .chip {
   display: inline-block;
   height: auto;
@@ -126,6 +137,14 @@
           transform: translateY(-140%);
 }
 
+
+/* Styling the card */
+.card {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Media Queries for smaller devices */
 @media (min-width: 768px){
   .left {
     width: 50%;
@@ -146,10 +165,4 @@
     right: -90%;
     width: 50%;
   }
-}
-
-
-.card {
-  max-height: 600px;
-  overflow-y: auto;
 }

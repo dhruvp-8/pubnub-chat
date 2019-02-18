@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PubNub Chat Application</title>
+	<title>SpotGif Chat</title>
+	<!-- Bootstrap CSS -->
 	<link href="https://bootswatch.com/4/lumen/bootstrap.min.css" rel="stylesheet">
+	<!-- Fontawesome CSS -->
 	<link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+	<!-- Custom CSS -->
 	<link href="./css/style.css" rel="stylesheet">
 </head>
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- PubNub ChatEngine SDK -->
 <script src="https://cdn.jsdelivr.net/npm/chat-engine@0.9.18/dist/chat-engine.min.js"></script> 
+<!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>
 <body>
+	<!-- User Login Area -->
 	<div id="userFormArea">
 		<div class="container">
 			<h2 class="text-center">PubNub Chat Application</h2>
@@ -35,6 +42,8 @@
 		  </fieldset>
 		</div>
 	</div>
+
+	<!-- Main Chat Area -->
 	<div id="chatArea">
 		<div id="loader">
 			<div class="text-center">
@@ -113,6 +122,8 @@
 			</div>
 	    </div>
 	</div>
+
+	<!-- Footer -->
 	<footer id="ft">
 	    <div class="container">
 	    <hr>
@@ -140,6 +151,8 @@
 		    </div>
 	    </div>
 	</footer>
+
+	<!-- Importing the js file -->
 	<script src="./js/main.js"></script>
 </body>
 </html>
